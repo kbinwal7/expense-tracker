@@ -1,2 +1,7 @@
 frontend/node_modules/
 plan.txt
+.env
+__pycache__/
+*.pyc
+node_modules/
+venv/

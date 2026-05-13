@@ -30,16 +30,22 @@ from apps.auth.db_user import User as UserModel
 from apps.auth.user import User, Token, TokenData, UserCreate, UserLogin
 from db_config import Base
 
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+DATABASE_URL = os.getenv("DATABASE_URL")
+ALGORITHM = os.getenv("ALGORITHM")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
 router = APIRouter()
 
 @router.get("/")
 async def auth_home():
     return {"message": "Auth routes"}
 
-SECRET_KEY = "3209d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
 
 
 
