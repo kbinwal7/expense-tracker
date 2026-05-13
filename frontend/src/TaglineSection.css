@@ -1,0 +1,197 @@
+.tagline-card {
+  position: relative;
+  overflow: hidden;
+  padding: 40px 32px;
+  border-radius: var(--radius-lg);
+  
+  /* Soft frosted glass blend */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.55),
+    rgba(240, 249, 249, 0.45)
+  );
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.tagline-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(45, 125, 134, 0.12);
+}
+
+/* Top accent brand line - matches the sleek teal gradient */
+.tagline-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    var(--teal-light),
+    var(--teal-primary),
+    #c5ebd2 /* Soft mint blend */
+  );
+}
+
+/* Soft ambient teal glow effect */
+.tagline-glow {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(
+    circle,
+    rgba(77, 163, 173, 0.12),
+    transparent 70%
+  );
+  top: -120px;
+  right: -90px;
+  pointer-events: none;
+}
+
+/* Content layer positioning */
+.tagline-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Small structural badge */
+.tagline-badge {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--glass-border);
+  color: var(--teal-dark);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(45, 125, 134, 0.05);
+}
+
+/* Main typography header */
+.tagline-content h2 {
+  margin-bottom: 16px;
+  font-size: 42px;
+  line-height: 1.1;
+  font-weight: 800;
+  
+  /* Modern Slate/Teal gradient split */
+  background: linear-gradient(
+    135deg,
+    var(--teal-dark),
+    var(--teal-light)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Paragraph text */
+.tagline-content p {
+  max-width: 720px;
+  margin: 0 auto 28px;
+  color: var(--text-light);
+  font-size: 17px;
+  line-height: 1.8;
+  font-weight: 500;
+}
+
+/* Feature pills container */
+.tagline-features {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+/* Feature individual pill UI */
+.feature-pill {
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--glass-border);
+  color: var(--teal-primary);
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(45, 125, 134, 0.04);
+  transition: all 0.25s ease;
+}
+
+.feature-pill:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  color: var(--teal-dark);
+  box-shadow: 0 6px 16px rgba(45, 125, 134, 0.08);
+}
+
+/* Bottom company info container */
+.company-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 6px 18px rgba(45, 125, 134, 0.04);
+}
+
+.powered-by {
+  color: var(--text-light);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+.company-name {
+  font-size: 22px;
+  font-weight: 800;
+  background: linear-gradient(
+    135deg,
+    var(--teal-dark),
+    var(--teal-primary)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =========================================
+   📱 RESPONSIVE ADJUSTMENTS
+========================================= */
+
+@media (max-width: 768px) {
+  .tagline-card {
+    padding: 32px 20px;
+    border-radius: var(--radius-md);
+  }
+
+  .tagline-content h2 {
+    font-size: 30px;
+  }
+
+  .tagline-content p {
+    font-size: 15px;
+  }
+
+  .company-name {
+    font-size: 18px;
+  }
+
+  .tagline-features {
+    gap: 10px;
+  }
+
+  .feature-pill {
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+}

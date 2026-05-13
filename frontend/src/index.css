@@ -1,0 +1,59 @@
+/* 🌸 Base Reset */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background: #fff0f7;
+
+  overflow-x: hidden;
+}
+
+/* ✨ Dreamy sparkles */
+
+body::after {
+  content: "✦ ✧ ♡ ✦";
+
+  position: fixed;
+
+  top: 20px;
+  right: 24px;
+
+  font-size: 24px;
+
+  color: rgba(255,255,255,0.8);
+
+  pointer-events: none;
+
+  animation: floaty 4s ease-in-out infinite;
+}
+
+@keyframes floaty {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+#root {
+  background: transparent;
+}
