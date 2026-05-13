@@ -4,16 +4,18 @@ SaveSavvy is a modern full-stack expense tracking application that helps users m
 
 ---
 
-## Features
+## ✨ Features
 
-- Add new expenses and transactions
-- Edit and delete transaction history
+- Secure user authentication system
+- Add, edit, and delete expenses
+- Categorize transactions efficiently
 - Search transactions by name, ID, or category
+- Track transaction date and time
+- Automatic expense creation timestamps
 - Real-time transaction updates
-- Expense categorization
-- Date & time tracking
-- Refresh data instantly
-- Clean and responsive UI
+- Responsive and modern UI
+- FastAPI + Node.js backend integration
+- PostgreSQL database support
 
 ---
 
