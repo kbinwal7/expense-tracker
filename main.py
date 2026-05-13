@@ -123,9 +123,7 @@ init_db()
 
 @app.get("/transactions")
 def get_all_trsanctions(db: Session=Depends(get_db)):
-    db_transaction=db.query(db_model.Transaction).order_by(
-      db_model.Transaction.transaction_time.desc()
-  ).all()
+    db_transaction=db.query(db_model.Transaction).order_by(db_model.Transaction.transaction_time.desc()).all()
     return db_transaction
 
 @app.get("/transactions/{id}") #this is  dynamic now
@@ -138,10 +136,23 @@ def get_transaction_by_id(id:int,db: Session=Depends(get_db)):
     return None
 
 @app.post("/transactions")
-def add_to_list(trans:Transaction,db: Session=Depends(get_db)):
-    db.add(db_model.Transaction(**trans.model_dump()))
+def add_to_list(trans: Transaction, db: Session = Depends(get_db)):
+
+    new_transaction = db_model.Transaction(
+        name=trans.name,
+        amount=trans.amount,
+        category=trans.category,
+        transaction_time=trans.transaction_time
+    )
+
+    db.add(new_transaction)
     db.commit()
-    return {"message": "Transaction created successfully", "transaction": trans}
+    db.refresh(new_transaction)
+
+    return {
+        "message": "Transaction created successfully",
+        "transaction": new_transaction
+    }
     
 @app.put("/transactions/{id}")
 def update_by_id(

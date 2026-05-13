@@ -32,3 +32,8 @@ class Transaction(BaseModel):
     category: ExpenseCategory
 
     transaction_time: datetime
+    
+    created_at: Optional[datetime] = None
+    
+    class Config:
+        orm_mode = True

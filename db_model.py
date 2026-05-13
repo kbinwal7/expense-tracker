@@ -21,15 +21,18 @@ class ExpenseCategory(enum.Enum):
     
 
 
+from sqlalchemy import Column, Integer, String, Float, DateTime, Enum
+from datetime import datetime
+
 class Transaction(Base):
     __tablename__ = "Transactions"
 
     id = Column(
-    Integer,
-    primary_key=True,
-    index=True,
-    autoincrement=True
-)
+        Integer,
+        primary_key=True,
+        index=True,
+        autoincrement=True
+    )
 
     name = Column(String, nullable=False)
 
@@ -40,7 +43,15 @@ class Transaction(Base):
         nullable=False
     )
 
+    #to be entered by user
     transaction_time = Column(
         DateTime,
+        nullable=False
+    )
+
+    # Automatically stores current date & time
+    created_at = Column(
+        DateTime,
+        default=datetime.utcnow,
         nullable=False
     )
