@@ -3,6 +3,7 @@ import axios from "axios";
 import "./App.css";
 import TaglineSection from "./TaglineSection";
 import Login from "./Login";
+import Dashboard from "./Dashboard";
 
 const api = axios.create({
   baseURL: "http://localhost:8000",
@@ -10,9 +11,7 @@ const api = axios.create({
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
-  const [username, setUsername] = useState(
-    localStorage.getItem("username") || null,
-  );
+  const [page, setPage] = useState("home"); // "home" | "dashboard"
   const [transactions, setTransactions] = useState([]);
   const [form, setForm] = useState({
     name: "",
@@ -26,7 +25,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState("");
 
-  // All hooks FIRST — before any early returns
   useEffect(() => {
     if (token) {
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -36,7 +34,7 @@ function App() {
   }, [token]);
 
   useEffect(() => {
-    if (token) fetchTransactions();
+    if (token) fetchTransactions(token);
   }, [token]);
 
   useEffect(() => {
@@ -63,26 +61,24 @@ function App() {
     );
   }, [transactions, filter]);
 
-  // Handlers
-  const handleLogin = (newToken, newUsername) => {
+  const handleLogin = (newToken) => {
     setToken(newToken);
-    setUsername(newUsername);
-    localStorage.setItem("token", newToken);
-    localStorage.setItem("username", newUsername);
+    fetchTransactions(newToken);
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("username");
     setToken(null);
-    setUsername(null);
     setTransactions([]);
+    setPage("home");
   };
 
-  const fetchTransactions = async () => {
+  const fetchTransactions = async (currentToken) => {
     setLoading(true);
     try {
-      const res = await api.get("/transactions/");
+      const res = await api.get("/transactions/", {
+        headers: { Authorization: `Bearer ${currentToken || token}` },
+      });
       setTransactions(Array.isArray(res.data) ? res.data : []);
       setError("");
     } catch (err) {
@@ -123,7 +119,7 @@ function App() {
         setMessage("Transaction added successfully");
       }
       resetForm();
-      fetchTransactions();
+      fetchTransactions(token);
     } catch (err) {
       setError(
         typeof err.response?.data?.detail === "string"
@@ -151,17 +147,18 @@ function App() {
     try {
       await api.delete(`/transactions/${id}/`);
       setMessage("Transaction deleted successfully");
-      fetchTransactions();
+      fetchTransactions(token);
     } catch (err) {
       setError("Delete failed");
     }
     setLoading(false);
   };
 
-  // Early return AFTER all hooks
-  if (!token) {
-    return <Login onLogin={handleLogin} />;
-  }
+  // Show login if not authenticated
+  if (!token) return <Login onLogin={handleLogin} />;
+
+  // Show dashboard page
+  if (page === "dashboard") return <Dashboard onBack={() => setPage("home")} />;
 
   return (
     <div className="app-bg">
@@ -172,16 +169,18 @@ function App() {
             <h1>SaveSavvy</h1>
           </div>
 
-          <div className="user-chip">
-            <div className="user-avatar">
-              {username ? username.charAt(0).toUpperCase() : "?"}
-            </div>
-            <span className="user-name">{username || "User"}</span>
-          </div>
-
           <div style={{ display: "flex", gap: "12px" }}>
-            <button className="btn btn-light" onClick={fetchTransactions}>
-              Refresh Data
+            <button
+              className="btn btn-light"
+              onClick={() => setPage("dashboard")}
+            >
+              Analytics
+            </button>
+            <button
+              className="btn btn-light"
+              onClick={() => fetchTransactions(token)}
+            >
+              Refresh
             </button>
             <button className="btn btn-light" onClick={handleLogout}>
               Log Out
@@ -190,7 +189,6 @@ function App() {
         </header>
 
         <div className="stats">
-          <div className="chip">Total Transactions: {transactions.length}</div>
           <input
             type="text"
             placeholder="Search by ID, name, or category..."
