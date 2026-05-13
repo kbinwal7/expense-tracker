@@ -35,27 +35,3 @@ SaveSavvy is a modern full-stack expense tracking application that helps users m
 
 ---
 
-## Project Structure
-
-```bash
-SaveSavvy/
-│
-├── frontend/
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
-│
-├── backend/
-│   ├── server.js
-│   ├── api/
-│   └── routes/
-│
-├── fastapi/
-│   ├── main.py
-│   └── requirements.txt
-│
-├── database/
-│   └── schema.sql
-│
-├── package.json
-└── README.md
