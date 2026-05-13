@@ -38,12 +38,17 @@ SaveSavvy is a modern full-stack expense tracking application that helps users m
 
 ### Login Page
 
-<img width="959" alt="Login Page" src="https://github.com/user-attachments/assets/fcc5c5e8-ccea-493d-a3ba-239feaaf230e" />
+<img width="937" height="476" alt="image" src="https://github.com/user-attachments/assets/728870f4-707f-43dd-a442-7f47633d349c" />
+
 
 ---
 
 ### Transaction Table
 
-<img width="940" alt="Transaction Table" src="https://github.com/user-attachments/assets/e1a2785d-93fa-4a4c-85bd-6c5ca1b899aa" />
+<img width="959" height="509" alt="image" src="https://github.com/user-attachments/assets/42d6f591-ccbe-4d18-b69a-73a1c4962fe9" />
+
+<img width="938" height="473" alt="image" src="https://github.com/user-attachments/assets/6580fa09-a56a-4adc-a62e-e976be2a650b" />
+
+
 
 
