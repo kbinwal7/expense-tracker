@@ -1,23 +1,23 @@
 # 🐿️ SaveSavvy – Expense Tracker
 
-SaveSavvy is a modern full-stack expense tracking application that helps users manage and monitor their daily spending with an intuitive dashboard and transaction history system.
+SaveSavvy is a modern full-stack expense tracking application that helps users manage and monitor their daily spending with transaction history.
 
 ---
 
-## ✨ Features
+## Features
 
-- ➕ Add new expenses and transactions
-- 📝 Edit and delete transaction history
-- 🔍 Search transactions by name, ID, or category
-- 📊 Real-time transaction updates
-- 💰 Expense categorization
-- 📅 Date & time tracking
-- 🔄 Refresh data instantly
-- 🎨 Clean and responsive UI
+- Add new expenses and transactions
+- Edit and delete transaction history
+- Search transactions by name, ID, or category
+- Real-time transaction updates
+- Expense categorization
+- Date & time tracking
+- Refresh data instantly
+- Clean and responsive UI
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - HTML
@@ -33,7 +33,7 @@ SaveSavvy is a modern full-stack expense tracking application that helps users m
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```bash
 SaveSavvy/
