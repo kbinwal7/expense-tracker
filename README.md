@@ -22,24 +22,27 @@ SaveSavvy is a modern full-stack expense tracking application that helps users m
 ## Tech Stack
 
 ### Frontend
+
 - HTML
 - CSS
 - JavaScript
 
 ### Backend
+
 - Node.js
 - FastAPI
 
 ### Database
+
 - PostgreSQL
 
 ---
+
 ## Screenshots
 
 ### Login Page
 
 <img width="937" height="476" alt="image" src="https://github.com/user-attachments/assets/728870f4-707f-43dd-a442-7f47633d349c" />
-
 
 ---
 
@@ -48,7 +51,3 @@ SaveSavvy is a modern full-stack expense tracking application that helps users m
 <img width="959" height="509" alt="image" src="https://github.com/user-attachments/assets/42d6f591-ccbe-4d18-b69a-73a1c4962fe9" />
 
 <img width="938" height="473" alt="image" src="https://github.com/user-attachments/assets/6580fa09-a56a-4adc-a62e-e976be2a650b" />
-
-
-
-
