@@ -34,4 +34,16 @@ SaveSavvy is a modern full-stack expense tracking application that helps users m
 - PostgreSQL
 
 ---
+## Screenshots
+
+### Login Page
+
+<img width="959" alt="Login Page" src="https://github.com/user-attachments/assets/fcc5c5e8-ccea-493d-a3ba-239feaaf230e" />
+
+---
+
+### Transaction Table
+
+<img width="940" alt="Transaction Table" src="https://github.com/user-attachments/assets/e1a2785d-93fa-4a4c-85bd-6c5ca1b899aa" />
+
 
