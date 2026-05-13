@@ -1,4 +1,4 @@
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy import create_engine
 
 # Database URL
@@ -13,4 +13,6 @@ SessionLocal = sessionmaker(
     autoflush=False,
     bind=engine
 )
+
+Base = declarative_base()
 

@@ -4,16 +4,20 @@ from enum import Enum
 
 
 class ExpenseCategory(str, Enum):
-    SKINCARE = "SKINCARE"
-    MAKEUP = "MAKEUP"
-    DINE_OUT = "DINE OUT"
-    TAKEAWAY = "TAKEAWAY"
-    STUDY = "STUDY"
-    PRODUCTIVITY = "PRODUCTIVITY"
+    FOOD = "FOOD"
+    TRANSPORT = "TRANSPORT"
     SHOPPING = "SHOPPING"
-    FITNESS = "FITNESS"
-    SUBSCRIPTIONS = "SUBSCRIPTIONS"
+    BILLS = "BILLS"
+    HEALTH = "HEALTH"
     ENTERTAINMENT = "ENTERTAINMENT"
+    EDUCATION = "EDUCATION"
+    FITNESS = "FITNESS"
+    BEAUTY = "BEAUTY"
+    TRAVEL = "TRAVEL"
+    SUBSCRIPTIONS = "SUBSCRIPTIONS"
+    PERSONAL = "PERSONAL"
+    HOME = "HOME"
+    OTHER = "OTHER"
 
 
 from pydantic import BaseModel
@@ -36,4 +40,4 @@ class Transaction(BaseModel):
     created_at: Optional[datetime] = None
     
     class Config:
-        orm_mode = True
+        from_attributes = True

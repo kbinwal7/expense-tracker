@@ -2,60 +2,51 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import "./App.css";
 import TaglineSection from "./TaglineSection";
+import Login from "./Login";
 
 const api = axios.create({
   baseURL: "http://localhost:8000",
 });
 
 function App() {
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [transactions, setTransactions] = useState([]);
-
   const [form, setForm] = useState({
     name: "",
     amount: "",
-    category: "MAKEUP",
+    category: "FOOD",
     transaction_time: "",
   });
-
   const [editId, setEditId] = useState(null);
-
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
   const [filter, setFilter] = useState("");
 
-  const fetchTransactions = async () => {
-    setLoading(true);
-    try {
-      const res = await api.get("/transactions");
-      setTransactions(res.data);
-      setError("");
-    } catch (err) {
-      setError("Failed to fetch transactions");
+  // All hooks FIRST — before any early returns
+  useEffect(() => {
+    if (token) {
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } else {
+      delete api.defaults.headers.common["Authorization"];
     }
-    setLoading(false);
-  };
+  }, [token]);
 
   useEffect(() => {
-    fetchTransactions();
-  }, []);
+    if (token) fetchTransactions();
+  }, [token]); // re-runs when token is set after login
 
   useEffect(() => {
     if (message) {
-      const timer = setTimeout(() => {
-        setMessage("");
-      }, 3000);
-      return () => clearTimeout(timer);
+      const t = setTimeout(() => setMessage(""), 3000);
+      return () => clearTimeout(t);
     }
   }, [message]);
 
   useEffect(() => {
     if (error) {
-      const timer = setTimeout(() => {
-        setError("");
-      }, 3000);
-      return () => clearTimeout(timer);
+      const t = setTimeout(() => setError(""), 3000);
+      return () => clearTimeout(t);
     }
   }, [error]);
 
@@ -69,31 +60,44 @@ function App() {
     );
   }, [transactions, filter]);
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+  // Handlers
+  const handleLogin = (newToken) => setToken(newToken);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    setTransactions([]);
   };
 
-  const resetForm = () => {
-    setForm({
-      name: "",
-      amount: "",
-      category: "MAKEUP",
-      transaction_time: "",
-    });
+  const fetchTransactions = async () => {
+    setLoading(true);
+    try {
+      const res = await api.get("/transactions/");
+      setTransactions(Array.isArray(res.data) ? res.data : []);
+      setError("");
+    } catch (err) {
+      if (err.response?.status === 401) {
+        handleLogout();
+      } else {
+        setError("Failed to fetch transactions");
+      }
+    }
+    setLoading(false);
+  };
 
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const resetForm = () => {
+    setForm({ name: "", amount: "", category: "MAKEUP", transaction_time: "" });
     setEditId(null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
     setMessage("");
     setError("");
-
     try {
       const payload = {
         name: form.name,
@@ -101,23 +105,16 @@ function App() {
         category: form.category,
         transaction_time: form.transaction_time + ":00",
       };
-
       if (editId) {
-        await api.put(`/transactions/${editId}`, payload);
-
+        await api.put(`/transactions/${editId}/`, payload);
         setMessage("Transaction updated successfully");
       } else {
-        await api.post("/transactions", payload);
-
+        await api.post("/transactions/", payload);
         setMessage("Transaction added successfully");
       }
-
       resetForm();
-
       fetchTransactions();
     } catch (err) {
-      console.log(err);
-
       setError(
         typeof err.response?.data?.detail === "string"
           ? err.response.data.detail
@@ -128,9 +125,6 @@ function App() {
     }
   };
 
-  // =========================
-  // Edit transaction
-  // =========================
   const handleEdit = (transaction) => {
     setForm({
       name: transaction.name,
@@ -141,16 +135,11 @@ function App() {
     setEditId(transaction.id);
   };
 
-  // =========================
-  // Delete transaction
-  // =========================
   const handleDelete = async (id) => {
-    const ok = window.confirm("Delete this transaction?");
-    if (!ok) return;
-
+    if (!window.confirm("Delete this transaction?")) return;
     setLoading(true);
     try {
-      await api.delete(`/transactions/${id}`);
+      await api.delete(`/transactions/${id}/`);
       setMessage("Transaction deleted successfully");
       fetchTransactions();
     } catch (err) {
@@ -159,21 +148,29 @@ function App() {
     setLoading(false);
   };
 
+  // Early return AFTER all hooks
+  if (!token) {
+    return <Login onLogin={handleLogin} />;
+  }
+
   return (
     <div className="app-bg">
       <div className="container">
-        {/* TOPBAR */}
         <header className="topbar">
           <div className="brand">
             <span className="brand-badge">🐿️</span>
             <h1>SaveSavvy</h1>
           </div>
-          <button className="btn btn-light" onClick={fetchTransactions}>
-            Refresh Data
-          </button>
+          <div style={{ display: "flex", gap: "12px" }}>
+            <button className="btn btn-light" onClick={fetchTransactions}>
+              Refresh Data
+            </button>
+            <button className="btn btn-light" onClick={handleLogout}>
+              Log Out
+            </button>
+          </div>
         </header>
 
-        {/* STATS CONTROL BAR */}
         <div className="stats">
           <div className="chip">Total Transactions: {transactions.length}</div>
           <input
@@ -184,9 +181,7 @@ function App() {
           />
         </div>
 
-        {/* MAIN DASHBOARD CONTENT GRID */}
         <div className="content-grid">
-          {/* LEFT: MANAGEMENT FORM CARD */}
           <div className="card form-card">
             <h2>{editId ? "Edit Transaction" : "Add Transaction"}</h2>
             <form onSubmit={handleSubmit} className="product-form">
@@ -198,7 +193,6 @@ function App() {
                 onChange={handleChange}
                 required
               />
-
               <input
                 type="number"
                 name="amount"
@@ -207,23 +201,26 @@ function App() {
                 onChange={handleChange}
                 required
               />
-
               <select
                 name="category"
                 value={form.category}
                 onChange={handleChange}
               >
-                <option value="MAKEUP">Makeup</option>
-                <option value="SKINCARE">Skincare</option>
-                <option value="DINE OUT">Dine Out</option>
-                <option value="TAKEAWAY">Takeaway</option>
+                <option value="FOOD">Food</option>
+                <option value="TRANSPORT">Transport</option>
                 <option value="SHOPPING">Shopping</option>
-                <option value="FITNESS">Fitness</option>
-                <option value="PRODUCTIVITY">Productivity</option>
-                <option value="STUDY">Study</option>
+                <option value="BILLS">Bills</option>
+                <option value="HEALTH">Health</option>
                 <option value="ENTERTAINMENT">Entertainment</option>
+                <option value="EDUCATION">Education</option>
+                <option value="FITNESS">Fitness</option>
+                <option value="BEAUTY">Beauty</option>
+                <option value="TRAVEL">Travel</option>
+                <option value="SUBSCRIPTIONS">Subscriptions</option>
+                <option value="PERSONAL">Personal</option>
+                <option value="HOME">Home</option>
+                <option value="OTHER">Other</option>
               </select>
-
               <input
                 type="datetime-local"
                 name="transaction_time"
@@ -231,7 +228,6 @@ function App() {
                 onChange={handleChange}
                 required
               />
-
               <div className="form-actions">
                 <button className="btn" type="submit">
                   {editId ? "Update" : "Add"}
@@ -247,12 +243,10 @@ function App() {
                 )}
               </div>
             </form>
-
             {message && <div className="success-msg">{message}</div>}
             {error && <div className="error-msg">{error}</div>}
           </div>
 
-          {/* RIGHT: LIVE RECORDS TABLE CARD */}
           <div className="card list-card">
             <h2>Recent History</h2>
             {loading ? (
@@ -301,7 +295,6 @@ function App() {
           </div>
         </div>
 
-        {/* FOOTER SECTION */}
         <div className="tagline-wrapper">
           <TaglineSection />
         </div>
