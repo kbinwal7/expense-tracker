@@ -10,6 +10,9 @@ const api = axios.create({
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [username, setUsername] = useState(
+    localStorage.getItem("username") || null,
+  );
   const [transactions, setTransactions] = useState([]);
   const [form, setForm] = useState({
     name: "",
@@ -34,7 +37,7 @@ function App() {
 
   useEffect(() => {
     if (token) fetchTransactions();
-  }, [token]); // re-runs when token is set after login
+  }, [token]);
 
   useEffect(() => {
     if (message) {
@@ -61,11 +64,18 @@ function App() {
   }, [transactions, filter]);
 
   // Handlers
-  const handleLogin = (newToken) => setToken(newToken);
+  const handleLogin = (newToken, newUsername) => {
+    setToken(newToken);
+    setUsername(newUsername);
+    localStorage.setItem("token", newToken);
+    localStorage.setItem("username", newUsername);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
     setToken(null);
+    setUsername(null);
     setTransactions([]);
   };
 
@@ -89,7 +99,7 @@ function App() {
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const resetForm = () => {
-    setForm({ name: "", amount: "", category: "MAKEUP", transaction_time: "" });
+    setForm({ name: "", amount: "", category: "FOOD", transaction_time: "" });
     setEditId(null);
   };
 
@@ -161,6 +171,14 @@ function App() {
             <span className="brand-badge">🐿️</span>
             <h1>SaveSavvy</h1>
           </div>
+
+          <div className="user-chip">
+            <div className="user-avatar">
+              {username ? username.charAt(0).toUpperCase() : "?"}
+            </div>
+            <span className="user-name">{username || "User"}</span>
+          </div>
+
           <div style={{ display: "flex", gap: "12px" }}>
             <button className="btn btn-light" onClick={fetchTransactions}>
               Refresh Data

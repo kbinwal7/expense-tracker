@@ -34,7 +34,7 @@ function Login({ onLogin }) {
           password: form.password,
         });
         localStorage.setItem("token", res.data.access_token);
-        onLogin(res.data.access_token);
+        onLogin(res.data.access_token, form.username);
       } else {
         await api.post("/auth/register", {
           username: form.username,

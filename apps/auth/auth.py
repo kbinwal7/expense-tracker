@@ -231,6 +231,7 @@ def login_for_access_token(
 
     return {
         "access_token": access_token,
+        "username": user.username,
         "token_type": "bearer",
     }
 
@@ -319,4 +320,4 @@ def login_user(user: UserLogin,db: Session = Depends(get_db)):
         expires_delta=access_token_expires
     )
 
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer", "username": db_user.username}
