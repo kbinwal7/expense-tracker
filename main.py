@@ -12,6 +12,7 @@ Base.metadata.create_all(bind=engine)
 # Import routers AFTER create_all
 from apps.auth.auth import router as auth_router
 from apps.transactions.transactions import router as transactions_router
+from apps.dashboard.dashboard import router as dashboard_router
 
 app = FastAPI(
     title="Expense Tracker API",
@@ -28,6 +29,8 @@ app.add_middleware(
 
 app.include_router(auth_router, prefix="/auth", tags=["Authentication"])
 app.include_router(transactions_router, prefix="/transactions", tags=["Transactions"])
+app.include_router(dashboard_router, prefix="/dashboard", tags=["Dashboard"])
+
 
 @app.get("/")
 async def root():

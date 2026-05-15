@@ -163,7 +163,7 @@ function Dashboard({ onBack }) {
           <div className="stats-grid">
             <StatCard
               icon=""
-              label="Total Spent this Month"
+              label="Total Spent"
               value={formatCurrency(summary.total_spend)}
             />
             <StatCard
@@ -198,7 +198,7 @@ function Dashboard({ onBack }) {
               <ResponsiveContainer width="100%" height={240}>
                 <AreaChart
                   data={monthlyTrend}
-                  margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+                  margin={{ top: 10, right: 10, left: 1, bottom: 1}}
                 >
                   <defs>
                     <linearGradient id="tealGrad" x1="0" y1="0" x2="0" y2="1">
@@ -261,7 +261,7 @@ function Dashboard({ onBack }) {
                   <Tooltip content={<PieTooltip />} />
                   <Legend
                     formatter={(val) => (
-                      <span style={{ color: "#2c3e40", fontSize: "12px" }}>
+                      <span style={{ color: "#2c3e40", fontSize: "8px" }}>
                         {val}
                       </span>
                     )}
@@ -281,7 +281,7 @@ function Dashboard({ onBack }) {
             <ResponsiveContainer width="100%" height={260}>
               <BarChart
                 data={categoryBreakdown}
-                margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+                margin={{ top: 10, right: 10, left: 1, bottom: 1}}
               >
                 <CartesianGrid
                   strokeDasharray="3 3"
@@ -290,7 +290,7 @@ function Dashboard({ onBack }) {
                 />
                 <XAxis
                   dataKey="category"
-                  tick={{ fill: "#708a8c", fontSize: 12 }}
+                  tick={{ fill: "#708a8c", fontSize: 9 }}
                   axisLine={false}
                   tickLine={false}
                 />

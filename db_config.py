@@ -1,8 +1,11 @@
 from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy import create_engine
+from dotenv import load_dotenv
+import os
 
-# Database URL
-DATABASE_URL = DATABASE_URL = "postgresql://postgres:postgressql@localhost:5432/expense"
+load_dotenv()
+
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Create engine
 # engine helps connect to the database 
