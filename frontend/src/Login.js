@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Login.css";
 
-const api = axios.create({ baseURL: "http://localhost:8000" });
-
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
 function Login({ onLogin }) {
   const [mode, setMode] = useState("login"); // "login" | "register"
 
