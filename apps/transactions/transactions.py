@@ -21,19 +21,7 @@ def get_db():
         db.close()
 
 
-def init_db():
-    db = SessionLocal()
-    try:
-        count = db.query(TransactionModel).count()
-        if count == 0:
-            for t in sample_transactions:
-                db.add(TransactionModel(**t.model_dump()))
-        db.commit()
-    finally:
-        db.close()
 
-
-Base.metadata.create_all(bind=engine)
 
 
 # GET all — only return THIS user's transactions

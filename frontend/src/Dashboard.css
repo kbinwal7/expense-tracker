@@ -1,0 +1,194 @@
+/* =========================================
+   📊 Dashboard — matches App.css theme
+========================================= */
+
+.dashboard-bg {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #e0f2f1 0%,
+    #e8f5e9 40%,
+    #f3e5f5 100%
+  );
+  padding-bottom: 40px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* =========================================
+   STATS GRID
+========================================= */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 32px rgba(45, 125, 134, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1b4d53;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #708a8c;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.stat-sub {
+  font-size: 12px;
+  color: #4da3ad;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* =========================================
+   CHARTS GRID
+========================================= */
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-bottom: 28px;
+}
+
+.chart-card {
+  padding: 28px;
+}
+
+.chart-card h2 {
+  margin-bottom: 20px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1b4d53;
+}
+
+.wide-chart {
+  width: 100%;
+}
+
+/* =========================================
+   TOOLTIP
+========================================= */
+
+.chart-tooltip {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(45, 125, 134, 0.15);
+  border-radius: 12px;
+  padding: 10px 14px;
+  box-shadow: 0 4px 16px rgba(45, 125, 134, 0.12);
+}
+
+.tooltip-label {
+  font-size: 12px;
+  color: #708a8c;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.tooltip-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1b4d53;
+}
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-chart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #708a8c;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* =========================================
+   LOADER
+========================================= */
+
+.dashboard-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 16px;
+  color: #708a8c;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+}
+
+.loader-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(45, 125, 134, 0.15);
+  border-top-color: #2d7d86;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 16px;
+  }
+
+  .stat-value {
+    font-size: 18px;
+  }
+}

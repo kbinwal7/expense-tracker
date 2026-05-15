@@ -4,25 +4,23 @@ import "./TaglineSection.css";
 const TaglineSection = () => {
   return (
     <div className="tagline-card">
-      {/* Glow Background */}
+      
       <div className="tagline-glow"></div>
 
       <div className="tagline-content">
-        {/* Small Top Badge */}
+        
         <div className="tagline-badge">✨ Smart Expense Tracking</div>
 
-        {/* Main Heading */}
-        <h2>Track. Manage. Grow. 💸</h2>
+        
+        <h2>Track. Manage. Grow</h2>
 
-        {/* Description */}
+        
         <p>
-          Organize your daily spending, manage your lifestyle beautifully, and
-          build smarter financial habits with your own dreamy personal expense
-          tracker.
+          Organize your daily spending, manage your life effortlessly, and build
+          smarter financial habits with your own personal expense tracker.
         </p>
 
-
-        {/* Bottom Badge */}
+        
         <div className="company-badge">
           <span className="powered-by">Made with ❤️</span>
 
