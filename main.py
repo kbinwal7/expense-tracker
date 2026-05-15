@@ -15,6 +15,7 @@ from apps.transactions.transactions import router as transactions_router
 from apps.dashboard.dashboard import router as dashboard_router
 
 
+
 app = FastAPI()
 
 app.add_middleware(

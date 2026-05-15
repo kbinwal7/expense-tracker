@@ -24,9 +24,6 @@ def get_db():
 
 
 
-Base.metadata.create_all(bind=engine)
-
-
 # GET all — only return THIS user's transactions
 @router.get("/")
 def get_all_transactions(
